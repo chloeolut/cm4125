@@ -11,6 +11,22 @@ const App = () => {
                         <img src ={love4uglies} alt="love4uglies" height="60"/>
 
                     </AppBar>
+                    <Grow in>
+                        <Container>
+                            <Grid container justify="space-between" alignItems="stretch" spacing = {3}>
+                                 
+                            <Grid item xs={12} sm={7}>
+                                    <Posts />
+                            </Grid>
+                            <Grid item xs={12} sm={7}>
+                                        <Form />
+                            
+                            </Grid>
+
+                            </Grid>
+                        </Container>
+
+                    </Grow>
                </Container>
     );
 }
