@@ -58,13 +58,21 @@ let reactHydrate;
 if (HAS_REACT_18) {
   const reactDomClient = require(`react-dom/client`);
 
-  reactRender = (Component, el) => reactDomClient.createRoot(el).render(Component);
+  reactRender = (Component, el) => {
+    const root = reactDomClient.createRoot(el);
+    root.render(Component);
+    return () => root.unmount();
+  };
 
   reactHydrate = (Component, el) => reactDomClient.hydrateRoot(el, Component);
 } else {
   const reactDomClient = require(`react-dom`);
 
-  reactRender = reactDomClient.render;
+  reactRender = (Component, el) => {
+    reactDomClient.render(Component, el);
+    return () => _reactDom.default.unmountComponentAtNode(el);
+  };
+
   reactHydrate = reactDomClient.hydrate;
 } // Do dummy dynamic import so the jsonp __webpack_require__.e is added to the commons.js
 // bundle. This ensures hot reloading doesn't break when someone first adds
@@ -145,17 +153,24 @@ function notCalledFunction() {
 
   if (process.env.GATSBY_EXPERIMENTAL_QUERY_ON_DEMAND && process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR === `true`) {
     let indicatorMountElement;
+    let cleanupFn;
     const showIndicatorTimeout = setTimeout(() => {
       indicatorMountElement = document.createElement(`first-render-loading-indicator`);
       document.body.append(indicatorMountElement);
-      renderer( /*#__PURE__*/_react.default.createElement(_indicator.Indicator, null), indicatorMountElement);
+      cleanupFn = renderer( /*#__PURE__*/_react.default.createElement(_indicator.Indicator, null), indicatorMountElement);
     }, 1000);
 
     dismissLoadingIndicator = () => {
       clearTimeout(showIndicatorTimeout);
 
       if (indicatorMountElement) {
-        _reactDom.default.unmountComponentAtNode(indicatorMountElement);
+        // If user defined replaceHydrateFunction themselves the cleanupFn return might not be there
+        // So fallback to unmountComponentAtNode for now
+        if (cleanupFn) {
+          cleanupFn();
+        } else {
+          _reactDom.default.unmountComponentAtNode(indicatorMountElement);
+        }
 
         indicatorMountElement.remove();
       }

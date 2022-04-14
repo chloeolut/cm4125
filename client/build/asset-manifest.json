@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b27dc28a.css",
+    "main.js": "/static/js/main.1f7f752c.js",
+    "static/media/love4ugliesLogo.jpeg": "/static/media/love4ugliesLogo.7e5d5235309ce82cfe1e.jpeg",
+    "index.html": "/index.html",
+    "main.b27dc28a.css.map": "/static/css/main.b27dc28a.css.map",
+    "main.1f7f752c.js.map": "/static/js/main.1f7f752c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b27dc28a.css",
+    "static/js/main.1f7f752c.js"
+  ]
+}
