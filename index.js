@@ -1,4 +1,3 @@
-
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -16,9 +15,6 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use("/user", userRouter);
 
-app.get('/', (req, res) => {
-  res.send('APP RUNNING..')
-} )
 
 const CONNECTION_URL = 'mongodb+srv://clout_99:Galapagos13@cluster1.22c9e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const PORT = process.env.PORT|| 5000;
