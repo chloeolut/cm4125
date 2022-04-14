@@ -52,7 +52,7 @@ const SignUp = () => {
     }
   };
 
-  const googleError = () => console.log('Google Sign In was unsuccessful. Try again later');
+  const googleError = () => console.log('Google Sign In unsuccessful. Try again later');
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -62,7 +62,7 @@ const SignUp = () => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">{ isSignup ? 'Sign up' : 'Sign in' }</Typography>
+        <Typography component="h1" variant="h5">{ isSignup ? 'Register' : 'Log in' }</Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             { isSignup && (
@@ -76,7 +76,7 @@ const SignUp = () => {
             { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
           </Grid>
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-            { isSignup ? 'Sign Up' : 'Sign In' }
+            { isSignup ? 'Register' : 'Log In' }
           </Button>
           <GoogleLogin
             clientId="623811141398-r1faka77a7raat6vvra0fokd3a34ca4h.apps.googleusercontent.com"
@@ -92,7 +92,7 @@ const SignUp = () => {
           <Grid container justify="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
-                { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }
+                { isSignup ? 'Have an account? Sign in' : "Don't have an account yet? Sign Up Now!" }
               </Button>
             </Grid>
           </Grid>
